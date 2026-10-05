@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaşif Akademi Tanıtım</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{
+  --navy:#22307e; --ink:#1d2560; --red:#ef3e5c; --red2:#e02f52;
+  --yellow:#ffd23f; --yellow2:#ffe680; --teal:#34c3a4; --blue:#2353c8;
+  --cream:#fffaf0; --peach:#ffe3cf;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#111;overflow:hidden}
+#stage{
+  position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;
+  background:var(--cream);transform-origin:0 0;
+  font-family:'Nunito',sans-serif;color:var(--ink);
+}
+.hand{font-family:'Caveat',cursive}
+.disp{font-family:'Baloo 2',sans-serif;font-weight:800}
+
+/* ---------- arka plan ---------- */
+.blob{position:absolute;border-radius:42% 58% 63% 37% / 41% 44% 56% 59%;animation:wob 9s ease-in-out infinite alternate}
+.b1{width:620px;height:560px;left:-300px;top:-260px;background:var(--red)}
+.b2{width:560px;height:520px;right:-280px;top:-240px;background:var(--teal);animation-duration:11s}
+.b3{width:680px;height:600px;left:-360px;bottom:-330px;background:var(--teal);animation-duration:10s}
+.b4{width:640px;height:560px;right:-320px;bottom:-300px;background:var(--red);animation-duration:12s}
+.b5{width:420px;height:380px;right:-240px;top:780px;background:var(--yellow);opacity:.55;animation-duration:8s}
+.b6{width:380px;height:360px;left:-240px;top:980px;background:var(--yellow);opacity:.45;animation-duration:13s}
+@keyframes wob{
+  0%{transform:rotate(0) scale(1);border-radius:42% 58% 63% 37% / 41% 44% 56% 59%}
+  100%{transform:rotate(25deg) scale(1.08);border-radius:58% 42% 37% 63% / 55% 38% 62% 45%}
+}
+.sym{position:absolute;font-family:'Caveat',cursive;font-weight:700;color:var(--navy);opacity:.13;animation:flo 6s ease-in-out infinite alternate}
+@keyframes flo{from{transform:translateY(0) rotate(-8deg)}to{transform:translateY(-40px) rotate(10deg)}}
+
+/* ---------- sahneler ---------- */
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:240px 60px 320px;
+  animation:sIn .01s linear calc(var(--in)*1s) both, sOut .01s linear calc(var(--out)*1s) forwards}
+@keyframes sIn{from{visibility:hidden}to{visibility:visible}}
+@keyframes sOut{to{visibility:hidden}}
+
+/* ---------- animasyon sınıfları (--d: saniye) ---------- */
+.pop{animation:pop .65s cubic-bezier(.34,1.56,.64,1) calc(var(--d)*1s) both}
+@keyframes pop{from{transform:scale(0) rotate(calc(var(--r,0deg) - 14deg));opacity:0}to{transform:scale(1) rotate(var(--r,0deg));opacity:1}}
+.up{animation:up .7s cubic-bezier(.22,1.2,.36,1) calc(var(--d)*1s) both}
+@keyframes up{from{transform:translateY(110px) rotate(var(--r,0deg));opacity:0}to{transform:translateY(0) rotate(var(--r,0deg));opacity:1}}
+.fromL{animation:fromL .7s cubic-bezier(.22,1.15,.36,1) calc(var(--d)*1s) both}
+@keyframes fromL{from{transform:translateX(-1100px) rotate(var(--r,0deg))}to{transform:translateX(0) rotate(var(--r,0deg))}}
+.fromR{animation:fromR .7s cubic-bezier(.22,1.15,.36,1) calc(var(--d)*1s) both}
+@keyframes fromR{from{transform:translateX(1100px) rotate(var(--r,0deg))}to{transform:translateX(0) rotate(var(--r,0deg))}}
+.drop{animation:drop .9s cubic-bezier(.3,1.5,.5,1) calc(var(--d)*1s) both}
+@keyframes drop{from{transform:translateY(-700px) rotate(calc(var(--r,0deg) - 25deg));opacity:0}30%{opacity:1}to{transform:translateY(0) rotate(var(--r,0deg));opacity:1}}
+.wipe{animation:wipe .9s cubic-bezier(.6,0,.3,1) calc(var(--d)*1s) both}
+@keyframes wipe{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% -5% -20% 0)}}
+.fade{animation:fade .6s ease calc(var(--d)*1s) both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.draw{stroke-dasharray:var(--len);animation:draw .6s ease-out calc(var(--d)*1s) both}
+@keyframes draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+.bob{animation:bob 2.4s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(-10px)}to{transform:translateY(10px)}}
+.wig{animation:wig 1.2s ease-in-out infinite}
+@keyframes wig{0%,60%,100%{transform:rotate(0)}10%,30%,50%{transform:rotate(-12deg)}20%,40%{transform:rotate(12deg)}}
+.pulse{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+/* ---------- geçiş şeritleri ---------- */
+.sweep{position:absolute;left:-120px;right:-120px;top:-200px;height:2320px;z-index:50;transform:translateY(110%) skewY(-8deg);
+  animation:sweep var(--dur) linear calc(var(--d)*1s) both}
+@keyframes sweep{0%{transform:translateY(110%) skewY(-8deg)}46%,54%{transform:translateY(0) skewY(-8deg)}100%{transform:translateY(-110%) skewY(-8deg)}}
+
+/* ---------- ortak parçalar ---------- */
+.row{display:flex;align-items:center;justify-content:center}
+.card{background:#fff;border-radius:52px;padding:46px 46px 40px;width:960px;box-shadow:0 18px 0 rgba(34,48,126,.08)}
+.item{display:flex;align-items:center;gap:26px;margin:0 0 30px;font-weight:800;font-size:50px;line-height:1.12;color:var(--ink)}
+.item:last-child{margin-bottom:0}
+.item svg{flex:0 0 78px;width:78px;height:78px}
+.pill{border-radius:999px;color:#fff;padding:6px 52px 2px;display:inline-block;box-shadow:0 10px 0 rgba(0,0,0,.12)}
+.brush{display:inline-block;padding:4px 50px 0;background:var(--yellow);border-radius:28px 60px 30px 70px / 50px 30px 60px 30px}
+.badge{display:flex;flex-direction:column;align-items:center;text-align:center;width:440px}
+.badge .ic{width:178px;height:178px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 0 rgba(0,0,0,.1)}
+.badge .lb{margin-top:18px;font-family:'Baloo 2';font-weight:800;font-size:44px;line-height:1.02;color:var(--ink)}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- arka plan -->
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b5"></div>
+  <div class="blob b6"></div><div class="blob b3"></div><div class="blob b4"></div>
+  <div class="sym" style="left:90px;top:330px;font-size:120px">π</div>
+  <div class="sym" style="right:110px;top:420px;font-size:110px;animation-delay:-2s">÷</div>
+  <div class="sym" style="left:70px;top:900px;font-size:100px;animation-delay:-4s">√x</div>
+  <div class="sym" style="right:80px;top:1180px;font-size:120px;animation-delay:-1s">%</div>
+  <div class="sym" style="left:120px;top:1450px;font-size:110px;animation-delay:-3s">×</div>
+  <div class="sym" style="right:160px;top:1560px;font-size:90px;animation-delay:-5s">½</div>
+  <div class="sym" style="left:420px;top:250px;font-size:80px;animation-delay:-2.5s">+</div>
+  <div class="sym" style="left:500px;top:1640px;font-size:90px;animation-delay:-1.5s">=</div>
+
+  <!-- ============ SAHNE 1: Logo ============ -->
+  <section class="scene" style="--in:0;--out:5">
+    <!-- taç -->
+    <div class="drop" style="--d:.25">
+      <svg width="200" height="140" viewBox="0 0 200 140">
+        <g stroke="#f4b400" stroke-width="10" stroke-linecap="round" class="draw" style="--d:1.0;--len:60">
+          <line x1="20" y1="30" x2="38" y2="48"/><line x1="180" y1="30" x2="162" y2="48"/><line x1="100" y1="2" x2="100" y2="22"/>
+        </g>
+        <path d="M40 120 L30 52 L72 84 L100 36 L128 84 L170 52 L160 120 Z" fill="#ffd23f" stroke="#e7a800" stroke-width="9" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="disp row" style="font-size:260px;line-height:.86;color:var(--navy);letter-spacing:4px;text-shadow:0 12px 0 rgba(34,48,126,.15)">
+      <span class="pop" style="--d:.55;--r:-6deg">K</span><span class="pop" style="--d:.65;--r:4deg">A</span><span class="pop" style="--d:.75;--r:-3deg">Ş</span><span class="pop" style="--d:.85;--r:5deg">İ</span><span class="pop" style="--d:.95;--r:-4deg">F</span>
+    </div>
+    <div class="disp row" style="font-size:212px;line-height:.95;color:var(--red);margin-top:6px;text-shadow:0 10px 0 rgba(239,62,92,.2)">
+      <span class="pop" style="--d:1.15;--r:3deg">A</span><span class="pop" style="--d:1.22;--r:-4deg">K</span><span class="pop" style="--d:1.29;--r:2deg">A</span><span class="pop" style="--d:1.36;--r:-3deg">D</span><span class="pop" style="--d:1.43;--r:4deg">E</span><span class="pop" style="--d:1.5;--r:-2deg">M</span><span class="pop" style="--d:1.57;--r:3deg">İ</span>
+    </div>
+    <div class="wipe" style="--d:1.95;margin-top:26px;transform:rotate(-3deg)">
+      <div class="brush disp" style="font-size:94px;color:var(--navy);line-height:1.25">MATEMATİK OFİSİ</div>
+    </div>
+    <div class="hand up" style="--d:2.8;--r:-3deg;margin-top:70px;font-size:80px;font-weight:700;line-height:1.02;text-align:center;color:var(--navy)">
+      Matematikte doğru rehber,<br>başarıya giden en kolay yol! <span style="color:var(--red)">♡</span>
+    </div>
+    <div class="pop" style="--d:3.3;--r:-12deg;position:absolute;right:90px;top:1470px">
+      <div class="hand bob" style="font-size:78px;font-weight:700;color:var(--blue)">a²+b²=c²</div>
+    </div>
+    <div class="pop" style="--d:3.5;--r:-35deg;position:absolute;left:90px;top:1450px">
+      <svg width="170" height="170" viewBox="0 0 100 100"><g fill="none" stroke="#22307e" stroke-width="6" stroke-linejoin="round"><path d="M20 80 L28 58 L72 14 L86 28 L42 72 Z" fill="#fff"/><path d="M64 22 L78 36"/><path d="M20 80 L42 72"/></g></svg>
+    </div>
+  </section>
+
+  <!-- ============ SAHNE 2: Öğretmen ============ -->
+  <section class="scene" style="--in:5;--out:9">
+    <div class="pop" style="--d:5.25">
+      <div class="bob">
+        <svg width="190" height="190" viewBox="0 0 100 100">
+          <g stroke="#f4b400" stroke-width="5" stroke-linecap="round"><line x1="50" y1="4" x2="50" y2="14"/><line x1="14" y1="20" x2="21" y2="27"/><line x1="86" y1="20" x2="79" y2="27"/><line x1="4" y1="52" x2="14" y2="52"/><line x1="96" y1="52" x2="86" y2="52"/></g>
+          <path d="M50 22 C32 22 24 36 24 48 C24 60 34 66 36 74 L64 74 C66 66 76 60 76 48 C76 36 68 22 50 22Z" fill="#ffd23f" stroke="#22307e" stroke-width="5"/>
+          <path d="M38 82 H62 M41 90 H59" stroke="#22307e" stroke-width="5" stroke-linecap="round"/>
+          <path d="M44 60 L50 50 L56 60" fill="none" stroke="#22307e" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hand up" style="--d:5.45;font-size:96px;font-weight:700;color:var(--navy);margin-top:10px">Matematik Öğretmeni</div>
+    <div class="hand wipe" style="--d:5.95;font-size:190px;font-weight:700;line-height:.95;color:var(--navy);margin-top:14px">Gülçin</div>
+    <div class="hand wipe" style="--d:6.55;font-size:190px;font-weight:700;line-height:.95;color:var(--navy)">Acar Yıldırım</div>
+    <svg width="760" height="50" viewBox="0 0 760 50" style="margin-top:-6px">
+      <path class="draw" style="--d:7.35;--len:800" d="M10 32 C180 8 380 44 560 22 S720 18 750 28" fill="none" stroke="#ef3e5c" stroke-width="12" stroke-linecap="round"/>
+    </svg>
+    <div class="drop" style="--d:7.55;--r:4deg;margin-top:56px;position:relative">
+      <div style="position:absolute;left:50%;top:-26px;width:170px;height:52px;margin-left:-85px;background:#ff8fa3;opacity:.85;transform:rotate(-5deg)"></div>
+      <div class="hand" style="background:var(--yellow2);width:700px;padding:48px 40px 40px;font-size:80px;font-weight:700;line-height:1.0;text-align:center;color:var(--navy);box-shadow:0 18px 26px rgba(0,0,0,.12)">
+        Her seviyeye uygun<br>kişiye özel yaklaşım <span style="color:var(--red)">♡</span>
+      </div>
+    </div>
+    <!-- kağıt uçak -->
+    <div style="position:absolute;left:0;top:520px;animation:plane 2.2s ease-in-out 5.4s both">
+      <svg width="150" height="120" viewBox="0 0 100 80"><path d="M4 40 L96 6 L70 74 L48 50 Z" fill="#fff" stroke="#22307e" stroke-width="5" stroke-linejoin="round"/><path d="M96 6 L48 50 L46 70 L58 56" fill="none" stroke="#22307e" stroke-width="5" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ============ SAHNE 3: Ortaokul ============ -->
+  <section class="scene" style="--in:9;--out:14">
+    <div class="row" style="gap:20px">
+      <div class="pop" style="--d:9.25;--r:-10deg">
+        <div class="wig">
+          <svg width="140" height="124" viewBox="0 0 110 100">
+            <g stroke="#f4b400" stroke-width="6" stroke-linecap="round"><line x1="92" y1="22" x2="104" y2="12"/><line x1="96" y1="46" x2="108" y2="46"/><line x1="92" y1="70" x2="104" y2="80"/></g>
+            <path d="M10 36 H30 L78 12 V80 L30 56 H10 Z" fill="#ffd23f" stroke="#22307e" stroke-width="6" stroke-linejoin="round"/>
+            <path d="M24 56 L32 86 H46 L40 58" fill="#ef3e5c" stroke="#22307e" stroke-width="6" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="fromR" style="--d:9.35;--r:-2deg">
+        <div class="pill disp" style="background:var(--red);font-size:84px;line-height:1.15;white-space:nowrap;padding:6px 44px 2px">ORTAOKUL GRUBU</div>
+      </div>
+    </div>
+    <div class="pop" style="--d:9.8;--r:-3deg;margin-top:20px">
+      <div class="brush disp" style="font-size:80px;color:var(--navy);line-height:1.25">5, 6 ve 7. SINIFLAR</div>
+    </div>
+    <div class="card up" style="--d:10.15;margin-top:54px;border:7px solid var(--red)">
+      <div class="item fromL" style="--d:10.6"><svg viewBox="0 0 50 50"><path class="draw" style="--d:10.9;--len:60" d="M8 26 L20 38 L43 10" fill="none" stroke="#ef3e5c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Materyallerle zenginleştirilmiş konu anlatımı</span></div>
+      <div class="item fromL" style="--d:11.15"><svg viewBox="0 0 50 50"><path class="draw" style="--d:11.45;--len:60" d="M8 26 L20 38 L43 10" fill="none" stroke="#ef3e5c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Matematikteki başarıyı artıran soru çözümü</span></div>
+      <div class="item fromL" style="--d:11.7"><svg viewBox="0 0 50 50"><path class="draw" style="--d:12.0;--len:60" d="M8 26 L20 38 L43 10" fill="none" stroke="#ef3e5c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Maarif Modeline uygun beceri temelli soru çözümü</span></div>
+      <div class="item fromL" style="--d:12.25"><svg viewBox="0 0 50 50"><path class="draw" style="--d:12.55;--len:60" d="M8 26 L20 38 L43 10" fill="none" stroke="#ef3e5c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Ödevlendirme ve kontrolü</span></div>
+    </div>
+    <div class="pop" style="--d:12.9;--r:14deg;position:absolute;right:70px;top:1500px">
+      <svg width="120" height="120" viewBox="0 0 100 100"><path d="M50 6 L62 38 L96 38 L68 58 L78 92 L50 72 L22 92 L32 58 L4 38 L38 38 Z" fill="none" stroke="#f4b400" stroke-width="6" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ============ SAHNE 4: LGS ============ -->
+  <section class="scene" style="--in:14;--out:19">
+    <div class="row" style="gap:26px">
+      <div class="pop" style="--d:14.25;position:relative;width:190px;height:190px">
+        <svg width="190" height="190" viewBox="0 0 100 100">
+          <circle cx="44" cy="56" r="40" fill="#ef3e5c" stroke="#22307e" stroke-width="5"/>
+          <circle cx="44" cy="56" r="28" fill="#fff"/>
+          <circle cx="44" cy="56" r="17" fill="#2353c8"/>
+          <circle cx="44" cy="56" r="7" fill="#fff"/>
+        </svg>
+        <div style="position:absolute;left:0;top:0;animation:arrow .45s cubic-bezier(.5,0,.9,.6) 14.65s both">
+          <div class="wig" style="animation-delay:15.1s;animation-iteration-count:1;transform-origin:44% 56%">
+            <svg width="190" height="190" viewBox="0 0 100 100"><path d="M44 56 L92 8" stroke="#22307e" stroke-width="6" stroke-linecap="round"/><path d="M80 6 L94 6 L94 20 M86 2 L98 2 L98 14" fill="none" stroke="#22307e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-start">
+        <div class="fromR" style="--d:14.35;--r:-2deg"><div class="brush disp" style="font-size:150px;line-height:1.08;color:var(--navy);padding:0 40px">8. SINIF</div></div>
+        <div class="fromR" style="--d:14.55;--r:-2deg;margin-top:10px"><div class="pill disp" style="background:var(--blue);font-size:76px;line-height:1.15;padding:4px 40px 0">LGS DERSLERİ</div></div>
+      </div>
+    </div>
+    <div class="card up" style="--d:15.1;margin-top:56px;border:7px solid var(--yellow)">
+      <div class="item fromL" style="--d:15.5"><svg viewBox="0 0 50 50"><path class="draw" style="--d:15.8;--len:60" d="M8 26 L20 38 L43 10" fill="none" stroke="#f4b400" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Konu anlatımı</span></div>
+      <div class="item fromL" style="--d:16.0"><svg viewBox="0 0 50 50"><path class="draw" style="--d:16.3;--len:60" d="M8 26 L20 38 L43 10" fill="none" stroke="#f4b400" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Kısa ama etkili taktiklerle hızlı çözüm</span></div>
+      <div class="item fromL" style="--d:16.5"><svg viewBox="0 0 50 50"><path class="draw" style="--d:16.8;--len:60" d="M8 26 L20 38 L43 10" fill="none" stroke="#f4b400" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Branş denemeleri</span></div>
+      <div class="item fromL" style="--d:17.0"><svg viewBox="0 0 50 50"><path class="draw" style="--d:17.3;--len:60" d="M8 26 L20 38 L43 10" fill="none" stroke="#f4b400" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Ödevlendirme ve kontrolü</span></div>
+    </div>
+    <div class="hand pop" style="--d:17.6;--r:-5deg;margin-top:50px;font-size:86px;font-weight:700;color:var(--navy);white-space:nowrap">
+      LGS'de hedefin yüksek olsun! <span style="color:var(--red)">♡</span>
+    </div>
+  </section>
+
+  <!-- ============ SAHNE 5: Görsel + rozetler ============ -->
+  <section class="scene" style="--in:19;--out:23.5">
+    <div class="up" style="--d:19.2;position:relative">
+      <div style="width:700px;height:600px;border-radius:46% 54% 50% 50% / 40% 42% 58% 60%;overflow:hidden;border:10px solid #fff;box-shadow:0 20px 0 rgba(52,195,164,.35)">
+        <img src="assets/ogrenci.jpg" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block">
+      </div>
+      <div class="pop" style="--d:19.8;--r:-6deg;position:absolute;left:-30px;bottom:-30px">
+        <div class="hand" style="background:var(--teal);color:#fff;font-size:62px;font-weight:700;line-height:.95;padding:18px 34px 22px;border-radius:40px 60px 40px 60px">Matematik seninle<br>daha kolay ♡</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:440px 440px;gap:44px 30px;margin-top:70px">
+      <div class="badge pop" style="--d:20.15">
+        <div class="ic" style="background:var(--red)">
+          <svg width="112" height="112" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="6"><circle cx="50" cy="28" r="12"/><circle cx="24" cy="40" r="9"/><circle cx="76" cy="40" r="9"/><path d="M30 82 V70 C30 58 70 58 70 70 V82 Z"/><path d="M8 80 V70 C8 60 22 56 30 60 M92 80 V70 C92 60 78 56 70 60"/></svg>
+        </div><div class="lb">BAŞARI ODAKLI<br>PROFESYONEL EĞİTİM</div>
+      </div>
+      <div class="badge pop" style="--d:20.4">
+        <div class="ic" style="background:var(--yellow)">
+          <svg width="120" height="120" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"><circle cx="50" cy="50" r="38"/><circle cx="37" cy="40" r="3" fill="#fff"/><circle cx="63" cy="40" r="3" fill="#fff"/><path d="M32 60 C40 72 60 72 68 60"/></svg>
+        </div><div class="lb">GÜLER YÜZLÜ VE<br>ENERJİK ÖĞRETMEN</div>
+      </div>
+      <div class="badge pop" style="--d:20.65">
+        <div class="ic" style="background:var(--blue)">
+          <svg width="116" height="116" viewBox="0 0 100 100"><path d="M50 8 L62 38 L94 39 L69 59 L78 91 L50 73 L22 91 L31 59 L6 39 L38 38 Z" fill="none" stroke="#fff" stroke-width="6" stroke-linejoin="round"/></svg>
+        </div><div class="lb">BAŞARI ODAKLI<br>EĞİTİM</div>
+      </div>
+      <div class="badge pop" style="--d:20.9">
+        <div class="ic" style="background:var(--teal)">
+          <svg width="116" height="116" viewBox="0 0 100 100"><path d="M50 86 C20 64 8 50 8 33 C8 20 18 12 30 12 C40 12 46 18 50 26 C54 18 60 12 70 12 C82 12 92 20 92 33 C92 50 80 64 50 86 Z" fill="none" stroke="#fff" stroke-width="6" stroke-linejoin="round"/><text x="50" y="52" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="34" fill="#fff">π</text></svg>
+        </div><div class="lb">MATEMATİĞİ<br>SEVDİREN YAKLAŞIM</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SAHNE 6: İletişim ============ -->
+  <section class="scene" style="--in:23.5;--out:999">
+    <div class="pop" style="--d:23.75;text-align:center">
+      <div class="disp" style="font-size:110px;line-height:.9;color:var(--navy)">KAŞİF <span style="color:var(--red)">AKADEMİ</span></div>
+      <div class="brush disp" style="margin-top:12px;font-size:52px;line-height:1.3;color:var(--navy);transform:rotate(-2deg)">MATEMATİK OFİSİ</div>
+    </div>
+    <div class="up" style="--d:24.1;--r:-2deg;margin-top:60px">
+      <div style="background:var(--red);border-radius:60px;width:960px;padding:44px 40px 50px;text-align:center;color:#fff;box-shadow:0 20px 0 rgba(224,47,82,.25)">
+        <div style="font-weight:800;font-size:46px;opacity:.95">Matematik Öğretmeni</div>
+        <div class="hand" style="font-size:106px;font-weight:700;line-height:1;margin-top:4px;white-space:nowrap">Gülçin Acar Yıldırım <span style="color:var(--yellow)">♡</span></div>
+        <svg width="560" height="26" viewBox="0 0 560 26" style="display:block;margin:4px auto 0"><path class="draw" style="--d:24.7;--len:600" d="M6 16 C160 4 360 24 554 10" fill="none" stroke="#ffd23f" stroke-width="9" stroke-linecap="round"/></svg>
+        <div class="row pop" style="--d:25.0;gap:26px;margin-top:30px">
+          <div class="wig" style="animation-delay:25.6s">
+            <svg width="92" height="92" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#fff"/><path d="M34 22 L44 34 C46 37 45 40 42 42 L38 45 C42 54 47 59 56 63 L59 59 C61 56 64 55 67 57 L79 67 C81 69 81 72 79 74 L73 80 C69 84 62 84 54 80 C40 72 28 60 21 46 C17 38 17 31 21 27 L27 22 C29 20 32 20 34 22Z" fill="#ef3e5c"/></svg>
+          </div>
+          <div class="disp pulse" style="font-size:104px;line-height:1;white-space:nowrap;animation-delay:25.6s">0534 953 31 42</div>
+        </div>
+      </div>
+    </div>
+    <div class="hand fade" style="--d:25.6;margin-top:40px;font-size:78px;font-weight:700;color:var(--navy)">Bilgi ve kayıt için hemen arayın!</div>
+    <div class="up" style="--d:26.0;margin-top:36px">
+      <div class="row" style="background:#fff;border-radius:44px;width:960px;padding:30px 36px;gap:28px;justify-content:flex-start;box-shadow:0 14px 0 rgba(34,48,126,.08)">
+        <div class="bob" style="flex:0 0 auto">
+          <svg width="96" height="120" viewBox="0 0 80 100"><path d="M40 96 C40 96 8 58 8 36 C8 18 22 4 40 4 C58 4 72 18 72 36 C72 58 40 96 40 96Z" fill="#2353c8"/><circle cx="40" cy="36" r="13" fill="#fff"/></svg>
+        </div>
+        <div style="font-weight:800;font-size:44px;line-height:1.22;color:var(--ink)">
+          Bahçelievler Mahallesi<br>
+          <span style="font-weight:700">İlk Hayat Rehabilitasyon Merkezi yanı</span><br>
+          Aygün İnşaat, Kat: 2 No: 6
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- geçiş şeritleri: T = 5, 9, 14, 19, 23.5 -->
+  <div id="sweeps"></div>
+</div>
+
+<style>@keyframes plane{from{transform:translate(-200px,120px) rotate(-10deg)}to{transform:translate(1250px,-180px) rotate(-18deg)}}
+@keyframes arrow{from{transform:translate(160px,-160px);opacity:0}20%{opacity:1}to{transform:translate(0,0);opacity:1}}</style>
+<script>
+  // Sahne geçişlerindeki renkli şeritler
+  const T = [5, 9, 14, 19, 23.5];
+  // Her şerit T anında ortalanır; alttaki şeritler daha uzun sürer, böylece girişte ve çıkışta renkler sırayla görünür
+  const bars = [["#ffd23f", 1.1], ["#ef3e5c", .95], ["#22307e", .8]];
+  const host = document.getElementById('sweeps');
+  T.forEach(t => bars.forEach(([c, dur]) => {
+    const d = document.createElement('div');
+    d.className = 'sweep';
+    d.style.cssText = `background:${c};--d:${t - dur / 2};--dur:${dur}s`;
+    host.appendChild(d);
+  }));
+
+  // Önizleme için sahneyi pencereye sığdır
+  const st = document.getElementById('stage');
+  function fit(){
+    if (window.__render) return;
+    const s = Math.min(innerWidth / 1080, innerHeight / 1920);
+    st.style.transform = `scale(${s})`;
+    st.style.left = (innerWidth - 1080 * s) / 2 + 'px';
+  }
+  addEventListener('resize', fit); fit();
+
+  // Kayıt sırasında belirli bir zamana atlamak için
+  window.seek = t => document.getAnimations().forEach(a => { a.pause(); a.currentTime = t * 1000; });
+  window.DURATION = 29;
+  // Önizlemede videoyu döngüye al
+  if (!location.search.includes('render')) setInterval(() => location.reload(), window.DURATION * 1000);
+</script>
+</body>
+</html>
